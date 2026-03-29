@@ -122,12 +122,34 @@
         </div>
 
         <button id="pdfBtn" class="btn-pdf">GERAR RELATÓRIO EM PDF</button>
-        <div class="success-msg">✓ Dados salvos com sucesso!</div>
-        <button id="checkoutBtn" style="background-color: #2563eb; margin-top: 15px;">Ir para o Checkout da Hotmart</button>
+        <div class="success-msg">✓ Perfil gerado e enviado para seu Líder!</div>
     </div>
 </div>
 
 <script>
+    // 1. Verificação de Segurança (Token Exigido)
+    const urlParams = new URLSearchParams(window.location.search);
+    const token = urlParams.get('token');
+
+    if (!token) {
+        document.body.innerHTML = "<h2 style='text-align: center; margin-top: 50px; color: #b91c1c;'>Acesso Restrito</h2><p style='text-align: center; font-size: 1.1rem;'>Por favor, utilize o link de convite exclusivo fornecido pelo seu Líder.</p>";
+        throw new Error("Token ausente");
+    }
+
+    // Valida token no Backend
+    fetch(`/api/convite/${token}`)
+        .then(async res => {
+            const data = await res.json();
+            if (!res.ok) {
+                document.body.innerHTML = `<h2 style='text-align: center; margin-top: 50px; color: #b91c1c;'>Acesso Bloqueado</h2><p style='text-align: center; font-size: 1.1rem;'>${data.erro || 'Convite inválido ou expirado.'}</p>`;
+                throw new Error(data.erro);
+            }
+            // Sucesso: Personaliza a tela
+            document.querySelector('h1').innerText = `Líder Flow - Equipe de ${data.nome_lider}`;
+        })
+        .catch(err => {
+            console.error("Falha na validação do convite:", err);
+        });
     // As 16 perguntas do teste baseadas na imagem fornecida
     const questions = [
         { id: 'q1', text: 'Quando surge um problema urgente, ajo rapidamente para resolver. Não gosto de perder tempo com muita análise.', type: 'forca' },
@@ -343,6 +365,7 @@
                 body: JSON.stringify({
                     nome,
                     email,
+                    token,                   // Adicionado o token obrigatório
                     acao: scores.forca,      // Força mapeia para pontos_acao no DB
                     insp: scores.expressao,  // Expressão mapeia para pontos_inspiracao no DB
                     harm: scores.harmonia,   // Harmonia continua pontos_harmonia
@@ -352,16 +375,13 @@
             });
 
             if(!response.ok) {
-                console.error("Erro ao salvar no banco", await response.text());
-                alert("Erro ao salvar seus dados no banco. Mas você pode continuar o checkout.");
+                const errorMsg = await response.text();
+                console.error("Erro ao salvar no banco", errorMsg);
+                alert("Atenção: Seu teste finalizou, mas ocorreu um erro no servidor ou o limite de acessos estourou agora.");
             }
         } catch (error) {
             console.error("Erro de rede:", error);
         }
-    });
-
-    document.getElementById('checkoutBtn').addEventListener('click', () => {
-        window.location.href = "https://hotmart.com/pt-br/marketplace/produtos/metodologia-lider-flow/X102529021Q?sck=HOTMART_SITE";
     });
 
     document.getElementById('pdfBtn').addEventListener('click', () => {

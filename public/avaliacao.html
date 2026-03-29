@@ -15,7 +15,7 @@
         .options { display: flex; justify-content: space-between; margin-top: 10px; }
         button { background-color: #0f172a; color: white; padding: 12px 24px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; width: 100%; transition: all 0.3s; }
         button:hover:not(:disabled) { background-color: #1e293b; }
-        button:disabled { background-color: #94a3b8; cursor: not-allowed; }
+        button:disabled { background-color: #94a3b8 !important; cursor: not-allowed !important; }
         .result-dark { display: none; margin-top: 20px; padding: 30px; border-radius: 8px; background-color: #1a202c; color: #f8fafc; text-align: left; }
         .result-dark h2 { text-align: center; color: #f8fafc; margin-top: 0; margin-bottom: 25px; }
         .progress-container { margin-bottom: 15px; }
@@ -69,7 +69,7 @@
         <div id="navigationButtons" style="display: none; justify-content: space-between; margin-top: 20px;">
             <button type="button" id="prevBtn" style="width: 48%; background-color: #64748b;">Voltar</button>
             <button type="button" id="nextBtn" style="width: 48%;">Próxima</button>
-            <button type="submit" id="submitBtn" style="width: 48%; display: none; background-color: #22c55e;">Calcular Meu Perfil</button>
+            <button type="submit" id="submitBtn" style="width: 48%; display: none;">Calcular Meu Perfil</button>
         </div>
     </form>
 
@@ -224,7 +224,9 @@
             
             // Libera o botão "Calcular" se estiver na última pergunta
             if (currentQuestionIndex === questions.length - 1) {
-                submitBtn.disabled = !document.querySelector('input[name="q16"]:checked');
+                const isSelected = !!document.querySelector('input[name="q16"]:checked');
+                submitBtn.disabled = !isSelected;
+                submitBtn.style.backgroundColor = isSelected ? '#22c55e' : '#94a3b8';
             }
             
             // Avança automaticamente para facilitar
@@ -248,7 +250,10 @@
         if (index === questions.length - 1) {
             nextBtn.style.display = 'none';
             submitBtn.style.display = 'block';
-            submitBtn.disabled = !document.querySelector('input[name="q16"]:checked');
+            
+            const isSelected = !!document.querySelector('input[name="q16"]:checked');
+            submitBtn.disabled = !isSelected;
+            submitBtn.style.backgroundColor = isSelected ? '#22c55e' : '#94a3b8';
         } else {
             nextBtn.style.display = 'block';
             submitBtn.style.display = 'none';

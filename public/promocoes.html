@@ -1,0 +1,571 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- SEO & Meta Tags -->
+    <title>Líder Flow | Liderança Consciente e Neurociência Aplicada</title>
+    <meta name="description" content="Transforme sua gestão com a Metodologia Líder Flow. Aprenda neurociência aplicada à liderança para gerar engajamento, segurança psicológica e resultados sustentáveis.">
+    <meta name="keywords" content="Liderança Consciente, Neurociência aplicada à gestão, Segurança Psicológica, Metodologia Líder Flow, Inteligência Emocional para Líderes">
+    
+    <!-- Open Graph -->
+    <meta property="og:title" content="Seja Líder Flow! Desenvolvimento de Liderança Baseado em Neurociência">
+    <meta property="og:description" content="Aprenda a regular a si mesmo para regular o ambiente. O próximo nível da sua liderança começa aqui.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://hotmart.com/pt-br/marketplace/produtos/metodologia-lider-flow/X102529021Q">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    
+    <!-- Scripts & Tags Placeholders -->
+    <!-- Google Tag Manager -->
+    <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src='https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);})(window,document,'script','dataLayer','GTM-XXXXXXX');</script>
+    <!-- End Google Tag Manager -->
+
+    <style>
+        :root {
+            --primary-dark: #0a192f;
+            --accent-blue: #112240;
+            --highlight-blue: #64ffda;
+            --soft-blue: #0077b6;
+            --text-main: #e6f1ff;
+            --text-secondary: #8892b0;
+            --white: #ffffff;
+            --gray-sof: #f0f2f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--primary-dark);
+            color: var(--text-main);
+            line-height: 1.6;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        h1, h2, h3 {
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 25, 47, 0.85);
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+        }
+
+        .nav-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            height: 80px;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--highlight-blue);
+            text-decoration: none;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--highlight-blue);
+        }
+
+        /* Hero Section */
+        .hero {
+            padding: 180px 0 100px;
+            text-align: center;
+            background: radial-gradient(circle at top right, rgba(0, 119, 182, 0.15), transparent),
+                        radial-gradient(circle at bottom left, rgba(100, 255, 218, 0.05), transparent);
+        }
+
+        .hero h1 {
+            font-size: clamp(2.5rem, 8vw, 4.5rem);
+            margin-bottom: 20px;
+            background: linear-gradient(90deg, #fff, #64ffda);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 40px;
+        }
+
+        .cta-button {
+            display: inline-block;
+            background: transparent;
+            color: var(--highlight-blue);
+            border: 2px solid var(--highlight-blue);
+            padding: 18px 36px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .cta-button:hover {
+            background: rgba(100, 255, 218, 0.1);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 30px -10px rgba(100, 255, 218, 0.3);
+        }
+
+        /* Problem Section */
+        .section-problem {
+            padding: 100px 0;
+            background: var(--white);
+            color: var(--primary-dark);
+            border-radius: 60px 60px 0 0;
+        }
+
+        .stat-card {
+            background: var(--gray-sof);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .stat-number {
+            font-size: 4rem;
+            font-weight: 700;
+            color: var(--soft-blue);
+            display: block;
+        }
+
+        .problem-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
+        }
+
+        .problem-item {
+            padding: 30px;
+            border-left: 4px solid var(--soft-blue);
+        }
+
+        /* Pillars Section */
+        .pillars {
+            padding: 100px 0;
+            background: var(--accent-blue);
+        }
+
+        .section-title {
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title h2 {
+            font-size: 2.5rem;
+            color: var(--highlight-blue);
+            margin-bottom: 15px;
+        }
+
+        .pillar-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .pillar-card {
+            background: rgba(255, 255, 255, 0.05);
+            padding: 30px;
+            border-radius: 15px;
+            transition: transform 0.3s;
+            text-align: center;
+        }
+
+        .pillar-card:hover {
+            transform: translateY(-10px);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        /* Accordion (Modules) */
+        .modules {
+            padding: 100px 0;
+        }
+
+        .accordion {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .accordion-item {
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .accordion-header {
+            width: 100%;
+            padding: 25px;
+            background: none;
+            border: none;
+            color: var(--text-main);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-size: 1.1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            padding: 0 25px;
+            color: var(--text-secondary);
+        }
+
+        .accordion-item.active .accordion-content {
+            max-height: 200px;
+            padding-bottom: 25px;               
+        }
+
+        /* Specialist Section */
+        .specialist {
+            padding: 100px 0;
+            background: var(--gray-sof);
+            color: var(--primary-dark);
+        }
+
+        .specialist-content {
+            display: flex;
+            align-items: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        .specialist-img {
+            flex: 1;
+            min-width: 300px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+        }
+
+        .specialist-img img {
+            width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        .specialist-text {
+            flex: 2;
+            min-width: 300px;
+        }
+
+        /* Pricing Section */
+        .pricing {
+            padding: 100px 0;
+            text-align: center;
+        }
+
+        .price-card {
+            background: linear-gradient(145deg, var(--accent-blue), var(--primary-dark));
+            max-width: 500px;
+            margin: 0 auto;
+            padding: 60px 40px;
+            border-radius: 30px;
+            border: 1px solid var(--highlight-blue);
+            position: relative;
+        }
+
+        .price-badge {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: var(--highlight-blue);
+            color: var(--primary-dark);
+            padding: 8px 20px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: 0.8rem;
+            text-transform: uppercase;
+        }
+
+        .old-price {
+            text-decoration: line-through;
+            color: var(--text-secondary);
+            font-size: 1.2rem;
+        }
+
+        .new-price {
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: var(--white);
+            margin: 10px 0;
+        }
+
+        .scarcity {
+            color: #ff4d4d;
+            font-weight: 600;
+            margin-top: 20px;
+            display: block;
+        }
+
+        /* Footer */
+        footer {
+            padding: 50px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.8rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            .stat-number {
+                font-size: 3rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Google Tag Manager (noscript) -->
+    <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-XXXXXXX" height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+
+    <nav>
+        <div class="container nav-content">
+            <a href="#" class="logo">LÍDER FLOW</a>
+            <ul class="nav-links">
+                <li><a href="#inicio">Início</a></li>
+                <li><a href="#metodologia">Metodologia</a></li>
+                <li><a href="#modulos">Módulos</a></li>
+                <li><a href="#sobre">Sobre</a></li>
+                <li><a href="#contato">Contato</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="hero" id="inicio">
+        <div class="container">
+            <h1>Seja Líder Flow!</h1>
+            <p>Desenvolvimento de liderança baseado em neurociência que ensina você a regular a si mesmo para regular o ambiente e gerar resultados sustentáveis.</p>
+            <a href="https://hotmart.com/pt-br/marketplace/produtos/metodologia-lider-flow/X102529021Q?sck=HOTMART_SITE" class="cta-button" target="_blank">Quero Transformar Minha Liderança</a>
+        </div>
+    </header>
+
+    <section class="section-problem">
+        <div class="container">
+            <div class="stat-card">
+                <span class="stat-number">70%</span>
+                <p>da variação no engajamento das equipes é de responsabilidade direta da liderança (Gallup).</p>
+            </div>
+            
+            <div class="problem-grid">
+                <div class="problem-item">
+                    <h3>O Impacto Biológico</h3>
+                    <p>O cérebro humano é programado para priorizar a <strong>segurança</strong> antes da performance. Sem um ambiente seguro, sua equipe opera em modo de sobrevivência, não de inovação.</p>
+                </div>
+                <div class="problem-item">
+                    <h3>O Gap da Liderança</h3>
+                    <p>Muitos líderes tentam gerir pessoas sem entender como o sistema nervoso funciona. O resultado? Burnout, rotatividade e baixa produtividade.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pillars" id="metodologia">
+        <div class="container">
+            <div class="section-title">
+                <h2>Os Pilares Líder Flow</h2>
+                <p>Equilíbrio entre Poder e Leveza através da Ciência.</p>
+            </div>
+            
+            <div class="pillar-grid">
+                <div class="pillar-card">
+                    <h3>Autoconexão</h3>
+                    <p>Consciência profunda dos seus próprios gatilhos e padrões.</p>
+                </div>
+                <div class="pillar-card">
+                    <h3>Comunicação</h3>
+                    <p>Ajuste fino da fala para ressonância com o interlocutor.</p>
+                </div>
+                <div class="pillar-card">
+                    <h3>Influência</h3>
+                    <p>Capacidade de mover pessoas sem coerção, gerando flow.</p>
+                </div>
+                <div class="pillar-card">
+                    <h3>Equilíbrio</h3>
+                    <p>A dosagem exata entre a autoridade e a empatia humana.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="modules" id="modulos">
+        <div class="container">
+            <div class="section-title">
+                <h2>Estrutura do Curso</h2>
+                <p>Uma jornada lógica da consciência à prática.</p>
+            </div>
+
+            <div class="accordion">
+                <div class="accordion-item">
+                    <button class="accordion-header">Módulo 1: Por que ser Líder Flow? <span>+</span></button>
+                    <div class="accordion-content">
+                        <p>Fundamentos da nova liderança, o papel do líder no engajamento e a introdução aos conceitos neurocientíficos de segurança psicológica.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">Módulo 2: Autoconexão <span>+</span></button>
+                    <div class="accordion-content">
+                        <p>Exploração da consciência e Perfil Comportamental. Entenda como sua biologia influencia suas decisões e como regular seu estado interno.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">Módulo 3: Conexão e Influência <span>+</span></button>
+                    <div class="accordion-content">
+                        <p>O Carisma sob a ótica da ciência e a Comunicação Flow. Aprenda a criar pontes neurais com seus liderados para uma influência genuína.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">Módulo 4: Equilíbrio do Poder e Leveza <span>+</span></button>
+                    <div class="accordion-content">
+                        <p>Gestão técnica de perfis e a visão estratégica do RH. Como manter a alta performance sem perder a humanidade.</p>
+                    </div>
+                </div>
+                <div class="accordion-item">
+                    <button class="accordion-header">Módulo 5: Da Consciência à Prática <span>+</span></button>
+                    <div class="accordion-content">
+                        <p>O Mapa do Líder. Consolidação de todo o aprendizado em um plano de ação prático para o seu dia a dia corporativo.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="specialist" id="sobre">
+        <div class="container">
+            <div class="specialist-content">
+            <div class="specialist-img">
+                <img src="https://static-media.hotmart.com/Uu0nWqcHXEG63WBS9MB-9nlFzxE=/300x300/smart/filters:format(webp):background_color(white)/hotmart/product_pictures/a7975789-c435-492c-877f-68af07815560/CapanovaHotmart.png?w=920" alt="Kelen Silva - Especialista em Neurociência">
+            </div>
+                <div class="specialist-text">
+                    <h2>Kelen Silva</h2>
+                    <p>Executiva com mais de 20 anos de experiência no mercado corporativo, Kelen Silva é especialista em Neurociência e Comportamento Humano. Sua metodologia "Líder Flow" nasceu da intersecção entre a prática de liderança em grandes empresas e as descobertas mais recentes sobre o funcionamento do cérebro social.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="pricing" id="contato">
+        <div class="container">
+            <div class="price-card">
+                <span class="price-badge">Oferta de Lançamento</span>
+                <p class="old-price">De R$ 497,00</p>
+                <p class="new-price">R$ 297,00</p>
+                <p>ou em até 12x no cartão</p>
+                <br>
+                <a href="https://hotmart.com/pt-br/marketplace/produtos/metodologia-lider-flow/X102529021Q?sck=HOTMART_SITE" class="cta-button" target="_blank" style="background: var(--highlight-blue); color: var(--primary-dark);">Garantir Minha Vaga Agora</a>
+                <span class="scarcity">⚠️ Restam poucas vagas com este valor especial.</span>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2024 Líder Flow. Todos os direitos reservados. Metodologia desenvolvida por Kelen Silva.</p>
+            <p>Termos de Uso | Políticas de Privacidade</p>
+        </div>
+    </footer>
+
+    <script>
+        // Accordion Logic
+        document.querySelectorAll('.accordion-header').forEach(button => {
+            button.addEventListener('click', () => {
+                const accordionItem = button.parentElement;
+                
+                // Toggle active class
+                accordionItem.classList.toggle('active');
+                
+                // Change icon
+                const span = button.querySelector('span');
+                span.textContent = accordionItem.classList.contains('active') ? '-' : '+';
+            });
+        });
+
+        // Smooth Scroll for Navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if(target) {
+                    window.scrollTo({
+                        top: target.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Simple Fade-in Animation on Scroll
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.pillar-card, .problem-item, .price-card').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'all 0.6s ease-out';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

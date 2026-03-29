@@ -1,0 +1,35 @@
+# Robots.txt para KS Líder Flow
+# Permite que os mecanismos de busca indexem o site
+
+User-agent: *
+Allow: /
+Disallow: /admin/
+Disallow: /private/
+Disallow: /*.pdf$
+Disallow: /cgi-bin/
+
+# Sitemap
+Sitemap: https://ksliderflow.com.br/sitemap.xml
+
+# Crawl delay (opcional - evita sobrecarga)
+Crawl-delay: 1
+
+# Regras específicas para Google
+User-agent: Googlebot
+Allow: /
+Crawl-delay: 0
+
+# Regras específicas para Bing
+User-agent: Bingbot
+Allow: /
+Crawl-delay: 1
+
+# Bloquear bots ruins (opcional)
+User-agent: MJ12bot
+Disallow: /
+
+User-agent: AhrefsBot
+Disallow: /
+
+User-agent: SemrushBot
+Disallow: /

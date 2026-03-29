@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Teste de Perfil - KS Líder Flow</title>
+    <style>
+        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; color: #1e293b; margin: 0; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: white; padding: 30px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: #0f172a; }
+        .form-group { margin-bottom: 20px; }
+        label { display: block; font-weight: bold; margin-bottom: 5px; }
+        input[type="text"], input[type="email"] { width: 100%; padding: 10px; border: 1px solid #cbd5e1; border-radius: 4px; box-sizing: border-box; }
+        .question { margin-bottom: 20px; padding: 15px; border: 1px solid #e2e8f0; border-radius: 6px; background-color: #f1f5f9; }
+        .options { display: flex; justify-content: space-between; margin-top: 10px; }
+        button { background-color: #0f172a; color: white; padding: 12px 24px; border: none; border-radius: 4px; cursor: pointer; font-size: 16px; width: 100%; }
+        button:hover { background-color: #1e293b; }
+        .result-dark { display: none; margin-top: 20px; padding: 30px; border-radius: 8px; background-color: #1a202c; color: #f8fafc; text-align: left; }
+        .result-dark h2 { text-align: center; color: #f8fafc; margin-top: 0; margin-bottom: 25px; }
+        .progress-container { margin-bottom: 15px; }
+        .progress-label { display: flex; justify-content: space-between; font-size: 14px; font-weight: bold; margin-bottom: 5px; }
+        .progress-bar { width: 100%; height: 10px; background-color: #334155; border-radius: 5px; overflow: hidden; }
+        .progress-fill { height: 100%; border-radius: 5px; transition: width 1s ease-out; }
+        .fill-acao { background-color: #2563eb; } /* Blue */
+        .fill-insp { background-color: #f59e0b; } /* Yellow/Orange */
+        .fill-harm { background-color: #22c55e; } /* Green */
+        .fill-clar { background-color: #0ea5e9; } /* Light Blue */
+        .profile-card { background-color: #2d3748; padding: 20px; border-radius: 8px; border-left: 5px solid #2563eb; margin-top: 25px; margin-bottom: 25px; }
+        .profile-card p { margin: 8px 0; font-size: 15px; }
+        .profile-card strong { color: #f8fafc; }
+        .btn-pdf { background-color: #16a34a; margin-top: 15px; font-weight: bold; }
+        .btn-pdf:hover { background-color: #15803d; }
+        .success-msg { text-align: center; color: #22c55e; margin-top: 15px; font-size: 14px; }
+        @media print {
+            body { background-color: #1a202c !important; color: #f8fafc !important; }
+            .container { background-color: #1a202c !important; box-shadow: none; max-width: 100%; padding: 0; }
+            #infoForm, #questionsContainer, #navigationButtons, #checkoutBtn, .btn-pdf, p.success-msg, .success-msg { display: none !important; }
+            #resultBox { display: block !important; padding: 0 !important; }
+            h1, .container > p { display: none !important; }
+            .container > div:first-child { display: block !important; text-align: center; margin-bottom: 30px; }
+            * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div style="text-align: center; margin-bottom: 20px;">
+        <img src="logo.png" alt="KS Líder Flow Logo" style="max-width: 200px; height: auto;">
+    </div>
+    <h1>Descubra seu Perfil Líder Flow</h1>
+    <p style="text-align: center; margin-bottom: 30px;">Responda de 1 (Discordo Totalmente) a 5 (Concordo Totalmente)</p>
+
+    <form id="testeForm">
+        <div class="form-group" id="infoForm">
+            <label for="nome">Nome Completo</label>
+            <input type="text" id="nome" required>
+            <br><br>
+            <label for="email">E-mail</label>
+            <input type="email" id="email" required>
+            <br><br>
+            <button type="button" id="startBtn">Começar Teste</button>
+        </div>
+
+        <div id="questionsContainer" style="display: none;">
+            <!-- Questions will be injected here -->
+        </div>
+
+        <div id="navigationButtons" style="display: none; justify-content: space-between; margin-top: 20px;">
+            <button type="button" id="prevBtn" style="width: 48%; background-color: #64748b;">Voltar</button>
+            <button type="button" id="nextBtn" style="width: 48%;">Próxima</button>
+            <button type="submit" id="submitBtn" style="width: 48%; display: none; background-color: #22c55e;">Calcular Meu Perfil</button>
+        </div>
+    </form>
+
+    <div id="resultBox" class="result-dark">
+        <h2 id="resultTitle">Seu Resultado</h2>
+
+        <div class="progress-container">
+            <div class="progress-label"><span>Ação (Executor)</span><span id="percForca">0%</span></div>
+            <div class="progress-bar"><div id="barForca" class="progress-fill fill-acao" style="width: 0%;"></div></div>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-label"><span>Inspiração (Comunicador)</span><span id="percExpr">0%</span></div>
+            <div class="progress-bar"><div id="barExpr" class="progress-fill fill-insp" style="width: 0%;"></div></div>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-label"><span>Harmonia (Planejador)</span><span id="percHarm">0%</span></div>
+            <div class="progress-bar"><div id="barHarm" class="progress-fill fill-harm" style="width: 0%;"></div></div>
+        </div>
+
+        <div class="progress-container">
+            <div class="progress-label"><span>Clareza (Analista)</span><span id="percEss">0%</span></div>
+            <div class="progress-bar"><div id="barEss" class="progress-fill fill-clar" style="width: 0%;"></div></div>
+        </div>
+
+        <!-- Detailed Profile Summaries -->
+        <div id="summary-expressao" class="profile-card" style="display: none; border-left-color: #f59e0b;">
+            <p><strong>Perfil Predominante:</strong> Inspiração (Comunicador)</p>
+            <p><strong>Pontos Fortes:</strong> Comunicativo, criativo, sociável, conecta pessoas.</p>
+            <p><strong>Pontos de Atenção:</strong> Falta de foco, desorganização, excesso de otimismo.</p>
+        </div>
+
+        <div id="summary-forca" class="profile-card" style="display: none; border-left-color: #2563eb;">
+            <p><strong>Perfil Predominante:</strong> Ação (Executor)</p>
+            <p><strong>Pontos Fortes:</strong> Focado em resultados, decisão rápida, autonomia.</p>
+            <p><strong>Pontos de Atenção:</strong> Impaciência, dificuldade em ouvir, centralização.</p>
+        </div>
+
+        <div id="summary-harmonia" class="profile-card" style="display: none; border-left-color: #22c55e;">
+            <p><strong>Perfil Predominante:</strong> Harmonia (Planejador)</p>
+            <p><strong>Pontos Fortes:</strong> Calmo, cooperativo, promove cooperação, constância.</p>
+            <p><strong>Pontos de Atenção:</strong> Resistência à mudança, lentidão, medo de errar.</p>
+        </div>
+
+        <div id="summary-essencia" class="profile-card" style="display: none; border-left-color: #0ea5e9;">
+            <p><strong>Perfil Predominante:</strong> Clareza (Analista)</p>
+            <p><strong>Pontos Fortes:</strong> Analítico, detalhista, busca precisão, organiza processos.</p>
+            <p><strong>Pontos de Atenção:</strong> Perfeccionismo extremo, indecisão, rigidez.</p>
+        </div>
+
+        <button id="pdfBtn" class="btn-pdf">GERAR RELATÓRIO EM PDF</button>
+        <div class="success-msg">✓ Dados salvos com sucesso!</div>
+        <button id="checkoutBtn" style="background-color: #2563eb; margin-top: 15px;">Ir para o Checkout da Hotmart</button>
+    </div>
+</div>
+
+<script>
+    // As 16 perguntas do teste baseadas na imagem fornecida
+    const questions = [
+        { id: 'q1', text: 'Quando surge um problema urgente, ajo rapidamente para resolver. Não gosto de perder tempo com muita análise.', type: 'forca' },
+        { id: 'q2', text: 'Gosto de conversar e trocar ideias antes de tomar decisões.', type: 'expressao' },
+        { id: 'q3', text: 'Prefiro seguir rotinas e métodos já testados, pois me sinto mais seguro(a).', type: 'harmonia' },
+        { id: 'q4', text: 'Tenho o hábito de revisar meu trabalho para garantir que tudo esteja correto.', type: 'essencia' },
+        { id: 'q5', text: 'Gosto de assumir o comando e fazer as coisas acontecerem quando é preciso agir.', type: 'forca' },
+        { id: 'q6', text: 'Sou motivado(a) por um ambiente leve, colaborativo e positivo.', type: 'expressao' },
+        { id: 'q7', text: 'Prefiro planejar bem antes de começar uma tarefa nova.', type: 'harmonia' },
+        { id: 'q8', text: 'Analiso todas as informações com atenção e lógica antes de tomar qualquer decisão.', type: 'essencia' },
+        { id: 'q9', text: 'Prefiro ter autonomia total para decidir o que fazer e como executar minhas tarefas.', type: 'forca' },
+        { id: 'q10', text: 'Tenho facilidade em envolver as pessoas e gerar entusiasmo nos projetos.', type: 'expressao' },
+        { id: 'q11', text: 'Gosto de ajudar o time a manter a harmonia e o clima equilibrado.', type: 'harmonia' },
+        { id: 'q12', text: 'Consigo identificar possíveis falhas em um processo e gosto de agir preventivamente para evitar erros.', type: 'essencia' },
+        { id: 'q13', text: 'Quando algo não sai como o planejado, ajusto o rumo e sigo em frente até alcançar o resultado.', type: 'forca' },
+        { id: 'q14', text: 'Tenho facilidade para lidar com diferentes pessoas e estilos de comunicação.', type: 'expressao' },
+        { id: 'q15', text: 'Prefiro ambientes previsíveis, onde sei o que esperar do dia.', type: 'harmonia' },
+        { id: 'q16', text: 'Sou exigente comigo mesmo(a) e busco entregar tudo com qualidade.', type: 'essencia' }
+    ];
+
+    const optionsMap = [
+        { label: 'Nada a ver', weight: 1 },
+        { label: 'Um pouco', weight: 2 },
+        { label: 'Mais ou menos', weight: 3 },
+        { label: 'Frequente', weight: 4 },
+        { label: 'Totalmente', weight: 5 }
+    ];
+
+    const container = document.getElementById('questionsContainer');
+    let currentQuestionIndex = 0;
+
+    // Render questions
+    questions.forEach((q, index) => {
+        const div = document.createElement('div');
+        div.className = 'question-block';
+        div.id = `question-box-${index}`;
+        div.style.display = 'none'; // oculto por padrão
+        div.innerHTML = `
+            <div style="text-align: right; font-size: 12px; color: #64748b; margin-bottom: 10px;">Pergunta ${index + 1} de ${questions.length}</div>
+            <p style="font-size: 1.1rem; text-align: center; margin-bottom: 30px;"><strong>${q.text}</strong></p>
+            <div class="options" style="display: flex; justify-content: space-between; gap: 10px;">
+                ${optionsMap.map(opt => `
+                    <label style="flex: 1; text-align: center; cursor: pointer; background: #f8fafc; padding: 15px 5px; border-radius: 8px; border: 1px solid #e2e8f0; transition: all 0.2s;">
+                        <input type="radio" name="${q.id}" value="${opt.weight}" required data-type="${q.type}" style="margin-bottom: 10px; transform: scale(1.2);">
+                        <br><span style="font-size: 14px; font-weight: 500;">${opt.label}</span>
+                    </label>
+                `).join('')}
+            </div>
+        `;
+        container.appendChild(div);
+    });
+
+    const infoForm = document.getElementById('infoForm');
+    const questionsContainer = document.getElementById('questionsContainer');
+    const navButtons = document.getElementById('navigationButtons');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const submitBtn = document.getElementById('submitBtn');
+
+    // Mudar estilos ao selecionar o radio button
+    document.querySelectorAll('input[type="radio"]').forEach(radio => {
+        radio.addEventListener('change', function() {
+            // Remove borda verde de todos os labels da pergunta atual
+            const currentBlock = document.getElementById(`question-box-${currentQuestionIndex}`);
+            currentBlock.querySelectorAll('label').forEach(lbl => {
+                lbl.style.borderColor = '#e2e8f0';
+                lbl.style.backgroundColor = '#f8fafc';
+            });
+            // Adiciona borda verde e fundo no label selecionado
+            this.parentElement.style.borderColor = '#22c55e';
+            this.parentElement.style.backgroundColor = '#f0fdf4';
+            
+            // Avança automaticamente para facilitar
+            setTimeout(() => {
+                if (currentQuestionIndex < questions.length - 1) {
+                    nextBtn.click();
+                }
+            }, 400);
+        });
+    });
+
+    function showQuestion(index) {
+        document.querySelectorAll('.question-block').forEach((el, i) => {
+            el.style.display = (i === index) ? 'block' : 'none';
+        });
+
+        // Botão voltar hiding logic
+        prevBtn.style.visibility = (index === 0) ? 'hidden' : 'visible';
+
+        // Swap next / submit buttons
+        if (index === questions.length - 1) {
+            nextBtn.style.display = 'none';
+            submitBtn.style.display = 'block';
+        } else {
+            nextBtn.style.display = 'block';
+            submitBtn.style.display = 'none';
+        }
+    }
+
+    document.getElementById('startBtn').addEventListener('click', () => {
+        const nome = document.getElementById('nome').value.trim();
+        const email = document.getElementById('email').value.trim();
+        
+        if (!nome || !email) {
+            alert('Por favor, preencha nome e e-mail antes de começar.');
+            return;
+        }
+
+        infoForm.style.display = 'none';
+        questionsContainer.style.display = 'block';
+        navButtons.style.display = 'flex';
+        showQuestion(currentQuestionIndex);
+    });
+
+    nextBtn.addEventListener('click', () => {
+        // Valida se a pergunta atual foi respondida
+        const currentQ = questions[currentQuestionIndex];
+        const selected = document.querySelector(`input[name="${currentQ.id}"]:checked`);
+        if (!selected) {
+            alert('Por favor, selecione uma opção antes de avançar.');
+            return;
+        }
+
+        if (currentQuestionIndex < questions.length - 1) {
+            currentQuestionIndex++;
+            showQuestion(currentQuestionIndex);
+        }
+    });
+
+    prevBtn.addEventListener('click', () => {
+        if (currentQuestionIndex > 0) {
+            currentQuestionIndex--;
+            showQuestion(currentQuestionIndex);
+        }
+    });
+
+    document.getElementById('testeForm').addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        // Check if last question is answered
+        const lastQ = questions[questions.length - 1];
+        if (!document.querySelector(`input[name="${lastQ.id}"]:checked`)) {
+            alert('Por favor, responda a última pergunta.');
+            return;
+        }
+
+        const nome = document.getElementById('nome').value;
+        const email = document.getElementById('email').value;
+
+        // Calculate scores
+        let scores = { forca: 0, expressao: 0, harmonia: 0, essencia: 0 };
+        const formData = new FormData(e.target);
+        for (let q of questions) {
+            scores[q.type] += parseInt(formData.get(q.id));
+        }
+
+        // Find dominant
+        let maxScore = -1;
+        let dominante = '';
+        for (const [key, val] of Object.entries(scores)) {
+            if (val > maxScore) {
+                maxScore = val;
+                dominante = key;
+            }
+        }
+
+        // Show result section locally first
+        document.getElementById('testeForm').style.display = 'none';
+        document.getElementById('resultBox').style.display = 'block';
+        
+        // Esconder todos os resumos
+        document.querySelectorAll('.profile-card').forEach(el => el.style.display = 'none');
+        // Mostrar resumo específico
+        document.getElementById(`summary-${dominante}`).style.display = 'block';
+
+        // Mapear nome de exibição para DB
+        const nomesExibicao = {
+            forca: 'Executor (Força)',
+            expressao: 'Comunicador (Expressão)',
+            harmonia: 'Planejador (Harmonia)',
+            essencia: 'Analista (Essência)'
+        };
+        const domFormatado = nomesExibicao[dominante];
+
+        // Calcular Porcentagens Visualmente
+        const totalScore = scores.forca + scores.expressao + scores.harmonia + scores.essencia;
+        const pForca = Math.round((scores.forca / totalScore) * 100);
+        const pExpr = Math.round((scores.expressao / totalScore) * 100);
+        const pEq = Math.round((scores.harmonia / totalScore) * 100);
+        const pEss = Math.round((scores.essencia / totalScore) * 100);
+
+        // Atribuir Porcentagens aos Textos e Barras
+        document.getElementById('percForca').innerText = pForca + '%';
+        document.getElementById('percExpr').innerText = pExpr + '%';
+        document.getElementById('percHarm').innerText = pEq + '%';
+        document.getElementById('percEss').innerText = pEss + '%';
+
+        // Pequeno timeout para dar o efeito de carregamento suave
+        setTimeout(() => {
+            document.getElementById('barForca').style.width = pForca + '%';
+            document.getElementById('barExpr').style.width = pExpr + '%';
+            document.getElementById('barHarm').style.width = pEq + '%';
+            document.getElementById('barEss').style.width = pEss + '%';
+        }, 100);
+
+        // Note: The backend variables remain the same (acao, insp, harm, clar) for compatibility 
+        // with the existing init.sql schema unless we want to change that too.
+        // We will map Força -> Ação, Expressão -> Inspiração, etc.
+        try {
+            const response = await fetch('/api/salvar-teste', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    nome,
+                    email,
+                    acao: scores.forca,      // Força mapeia para pontos_acao no DB
+                    insp: scores.expressao,  // Expressão mapeia para pontos_inspiracao no DB
+                    harm: scores.harmonia,   // Harmonia continua pontos_harmonia
+                    clar: scores.essencia,   // Essência mapeia para pontos_clareza no DB
+                    dominante: domFormatado
+                })
+            });
+
+            if(!response.ok) {
+                console.error("Erro ao salvar no banco", await response.text());
+                alert("Erro ao salvar seus dados no banco. Mas você pode continuar o checkout.");
+            }
+        } catch (error) {
+            console.error("Erro de rede:", error);
+        }
+    });
+
+    document.getElementById('checkoutBtn').addEventListener('click', () => {
+        window.location.href = "https://hotmart.com/pt-br/marketplace/produtos/metodologia-lider-flow/X102529021Q?sck=HOTMART_SITE";
+    });
+
+    document.getElementById('pdfBtn').addEventListener('click', () => {
+        window.print();
+    });
+</script>
+
+</body>
+</html>

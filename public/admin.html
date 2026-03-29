@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Painel de Resultados - KS Líder Flow</title>
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        h1 {
+            text-align: center;
+            color: #0f172a;
+            margin-bottom: 30px;
+        }
+        .summary-cards {
+            display: flex;
+            justify-content: space-around;
+            margin-bottom: 30px;
+        }
+        .card {
+            background-color: #f1f5f9;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            flex: 1;
+            margin: 0 10px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .card h3 {
+            margin: 0 0 10px 0;
+            font-size: 16px;
+            color: #64748b;
+        }
+        .card p {
+            margin: 0;
+            font-size: 24px;
+            font-weight: bold;
+            color: #0f172a;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+            background-color: #fff;
+        }
+        th, td {
+            text-align: left;
+            padding: 15px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        th {
+            background-color: #0f172a;
+            color: white;
+            font-weight: normal;
+        }
+        tr:hover {
+            background-color: #f8fafc;
+        }
+        .profile-badge {
+            padding: 5px 10px;
+            border-radius: 20px;
+            font-size: 13px;
+            font-weight: bold;
+            color: white;
+        }
+        .badge-acao { background-color: #2563eb; }
+        .badge-insp { background-color: #f59e0b; }
+        .badge-harm { background-color: #22c55e; }
+        .badge-clar { background-color: #0ea5e9; }
+        
+        .empty-message {
+            text-align: center;
+            padding: 30px;
+            color: #64748b;
+        }
+        
+        .loading {
+            text-align: center;
+            padding: 30px;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <div style="text-align: center; margin-bottom: 20px;">
+        <img src="logo.png" alt="KS Líder Flow Logo" style="max-width: 150px; height: auto;">
+    </div>
+    <h1>Painel Administrativo - Resultados</h1>
+
+    <div class="summary-cards">
+        <div class="card">
+            <h3>Total de Testes</h3>
+            <p id="totalCount">0</p>
+        </div>
+        <div class="card">
+            <h3>Perfil Mais Comum</h3>
+            <p id="mostCommonProfile">-</p>
+        </div>
+        <div class="card">
+            <h3>Última Resposta</h3>
+            <p id="lastResponseDate">-</p>
+        </div>
+    </div>
+
+    <div id="tableContainer">
+        <div class="loading" id="loadingMessage">Carregando dados...</div>
+        <table id="resultsTable" style="display: none;">
+            <thead>
+                <tr>
+                    <th>Data</th>
+                    <th>Nome</th>
+                    <th>E-mail</th>
+                    <th>Força</th>
+                    <th>Expressão</th>
+                    <th>Harmonia</th>
+                    <th>Essência</th>
+                    <th>Perfil Dominante</th>
+                </tr>
+            </thead>
+            <tbody id="resultsBody">
+                <!-- Data will be injected here -->
+            </tbody>
+        </table>
+        <div id="emptyMessage" class="empty-message" style="display: none;">
+            Nenhum teste respondido ainda.
+        </div>
+    </div>
+</div>
+
+<script>
+    function formatDate(dateString) {
+        const date = new Date(dateString);
+        return date.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', hour: '2-digit', minute: '2-digit' });
+    }
+
+    function getBadgeClass(profileName) {
+        if (profileName.includes('Ação') || profileName.includes('Executor')) return 'badge-acao';
+        if (profileName.includes('Inspiração') || profileName.includes('Comunicador')) return 'badge-insp';
+        if (profileName.includes('Harmonia') || profileName.includes('Planejador')) return 'badge-harm';
+        if (profileName.includes('Clareza') || profileName.includes('Analista')) return 'badge-clar';
+        return '';
+    }
+
+    async function fetchData() {
+        try {
+            const response = await fetch('/api/resultados');
+            const data = await response.json();
+            
+            document.getElementById('loadingMessage').style.display = 'none';
+
+            if (data.length === 0) {
+                document.getElementById('emptyMessage').style.display = 'block';
+                return;
+            }
+
+            // Populate table
+            const tbody = document.getElementById('resultsBody');
+            data.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${formatDate(row.created_at)}</td>
+                    <td><strong>${row.nome}</strong></td>
+                    <td>${row.email}</td>
+                    <td>${row.pontos_acao}</td>
+                    <td>${row.pontos_inspiracao}</td>
+                    <td>${row.pontos_harmonia}</td>
+                    <td>${row.pontos_clareza}</td>
+                    <td><span class="profile-badge ${getBadgeClass(row.perfil_dominante)}">${row.perfil_dominante}</span></td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            document.getElementById('resultsTable').style.display = 'table';
+
+            // Populate Cards
+            document.getElementById('totalCount').innerText = data.length;
+            document.getElementById('lastResponseDate').innerText = formatDate(data[0].created_at);
+
+            // Calculate most common profile
+            const profileCounts = {};
+            let maxCount = 0;
+            let commonProfile = '-';
+            data.forEach(row => {
+                profileCounts[row.perfil_dominante] = (profileCounts[row.perfil_dominante] || 0) + 1;
+                if (profileCounts[row.perfil_dominante] > maxCount) {
+                    maxCount = profileCounts[row.perfil_dominante];
+                    commonProfile = row.perfil_dominante;
+                }
+            });
+            document.getElementById('mostCommonProfile').innerText = commonProfile;
+
+        } catch (error) {
+            console.error('Erro ao buscar dados:', error);
+            document.getElementById('loadingMessage').innerText = 'Erro ao carregar dados. Verifique a conexão com o servidor.';
+        }
+    }
+
+    // Initialize
+    fetchData();
+</script>
+
+</body>
+</html>

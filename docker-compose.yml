@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  # A Aplicação Node.js (API + Frontend)
+  app:
+    build: .
+    container_name: ks_app
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      - DB_USER=admin
+      - DB_PASSWORD=liderflow2024
+      - DB_NAME=ks_lider_flow
+      - DB_HOST=db
+      - DB_PORT=5432
+      - PORT=3000
+    depends_on:
+      - db
+
+  # O Banco de Dados (PostgreSQL)
+  db:
+    image: postgres:15-alpine
+    container_name: ks_db
+    restart: always
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: liderflow2024
+      POSTGRES_DB: ks_lider_flow
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+
+  # O Painel de Gerenciamento do Banco (Adminer)
+  adminer:
+    image: adminer
+    container_name: ks_adminer
+    restart: always
+    ports:
+      - "8080:8080"
+    depends_on:
+      - db
+
+volumes:
+  postgres_data:
